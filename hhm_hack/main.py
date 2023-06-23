@@ -2,6 +2,7 @@ import openai
 import streamlit as st
 from streamlit_chat import message
 import random
+import time
 
 openai_api_key = st.secrets.openai_api_key
 
@@ -88,6 +89,10 @@ if not st.session_state["is_processing_input"]:
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.session_state["is_processing_input"] = True
         user_input = None
+
+        # FIXME: figure out why need this for stable state management
+        time.sleep(0.05)
+
         st.experimental_rerun()
 else:
     if openai_api_key and st.session_state["is_processing_input"]:
