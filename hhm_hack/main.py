@@ -67,6 +67,8 @@ def display_messages():
         )
 
 
+st.button("Restart", on_click=lambda: st.session_state.clear())
+
 # Pick a starting message
 if len(st.session_state.messages) == 1:
     add_starting_message()
@@ -102,11 +104,10 @@ else:
             messages=st.session_state.messages
         )
         msg = response.choices[0].message
-        feedback, follow_up = msg["content"].split("FOLLOW UP:")
 
-        st.session_state.messages.append({**msg, "content": feedback})
-        st.session_state.messages.append({**msg, "content": follow_up})
+        split_result = msg["content"].split("FOLLOW UP:")
+        st.session_state.messages.append({**msg, "content": split_result[0]})
+        if len(split_result) > 1:
+            st.session_state.messages.append({**msg, "content": split_result[1]})
         st.session_state["is_processing_input"] = False
         st.experimental_rerun()
-
-st.button("Restart", on_click=lambda: st.session_state.clear())
