@@ -41,8 +41,8 @@ Here are some best practices to base your feedback on:
 def add_starting_message():
     starting_messages = [
         "What happens when I’m in that tube? It looks scary.",
-        "Is it going to be dark there?",
-        "Is the procedure going to hurt?",
+        # "Is it going to be dark there?",
+        # "Is the procedure going to hurt?",
     ]
     st.session_state.messages.append(
         {"role": "assistant", "content": random.choice(starting_messages)}
